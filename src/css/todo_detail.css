@@ -1,0 +1,130 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: rgb(246, 246, 246);
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(225deg, #1C244C 0%, #181A20 10.42%, #191B26 88.54%, #1C244C 100%) no-repeat center;
+    background-size: cover;
+}
+
+.container {
+    margin: 0 55px;
+    display: grid;
+    grid-gap: 30px;
+}
+
+.logo {
+    text-align: center;
+}
+
+.text {
+    font-size: 20px;
+    font-weight: 900;
+    text-align: center;
+    text-align: left;
+}
+
+.phase input {
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+#logo {
+    display: grid;
+    width: 80%;
+}
+
+#hand {
+    display: grid;
+    width: 80%;
+    grid-template-columns: 10px 240px;
+}
+
+.line {
+    display: grid;
+    grid-template-columns: 10px 240px;
+    grid-gap: 27px;
+}
+
+.line input {
+    font-size: 27px;
+    font-weight: 700;
+    border: none;
+    background: transparent;
+}
+
+#line {
+    width: 5px;
+}
+
+.clock, .clip{
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    grid-gap: 17px;
+}
+
+.clock input 
+,.clip input{
+    border: none;
+    background: transparent;
+}
+
+#clock, #clip {
+    width: 20px;
+    vertical-align: center;
+}
+
+.clip p, .clock p {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.but {
+    /* padding-top: 100px; */
+    display: grid;
+    grid-template-columns: 106px 106px;
+    grid-gap: 27px;
+    justify-content: center;
+}
+
+button {
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    color: rgb(63, 63, 63);
+    background-color: rgb(246, 246, 246);
+    border-radius: 20px;
+    border: none;
+    width: 106px;
+    height: 41px;
+}
+
+#done {
+    width: 44px;
+    text-align: center;
+}
+
+.done_but {
+    padding-bottom: 100px;
+    display: grid;
+    grid-template-columns: 44px 44px;
+    justify-content: center;
+    align-items: center;
+}
+
+.hand {
+    background-image: url(../common/img/hand.png);
+    background-size: 32px;
+    width: 32px;
+    height: 32px;
+}
+
