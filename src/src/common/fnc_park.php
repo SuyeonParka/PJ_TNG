@@ -56,13 +56,13 @@ function todo_insert_recom_routine( &$param_arr )
 
 
 /*---------------------------------------------
-함수명 : todo_detail_routine_list
+함수명 : todo_select_todo_detail
 기능   : 게시글 정보
 파라미터 : int      &$param_no
 리턴값  :  int/array     $result/ERRMSG
 -----------------------------------------------*/
 
-function todo_detail_routine_list( &$param_no )
+function todo_select_todo_detail( &$param_no )
 {
     $sql =
         " SELECT "
@@ -116,14 +116,15 @@ function todo_update_flg( &$param_arr )
         " UPDATE "
         ." routine_info "
         ." SET "
-        ." routine_del_flg = '1'"
+        ." routine_del_flg = :routine_del_flg"
         ." WHERE "
         ." routine_no = :routine_no "
         ;
     
     $arr_prepare =
         array (
-            " routine_no " => $param_arr
+            " routine_no " => $param_arr["routine_no"]
+            ," routine_del_flg " => $param_arr["routine_del_flg"]
         );
 
     $conn = null;

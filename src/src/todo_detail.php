@@ -6,7 +6,7 @@ include_once( URL_DB );
 
 $arr_get = $_GET;
 
-$result_info = todo_detail_routine_list( $arr_get["list_no"]);
+$result_info = todo_select_todo_detail( $arr_get["list_no"] );
 
 ?>
 
@@ -51,19 +51,27 @@ $result_info = todo_detail_routine_list( $arr_get["list_no"]);
             if ( todo_update_flg() === 1) 
             {
             ?>
-                <img id="done" src="./common/img/done_button.png" alt="완료버튼">
+                <a href="todo_list.php">
+                    <img id="done" src="./common/img/done_button.png" alt="완료버튼">
+                </a>
+            <?
+            }
+            else
+            {
+            ?>
+                <img id="not_done"src="./common/img/circle.png" alt="미완료">
             <?
             }
             ?>
         </div>
         
         <div class="but">
-            <button>
-                <a href="todo_list.php?list_no=<? echo $result_info["list_no"]?>">
+            <button type="button" onclick="location.href='todo_list.php'">
                 목록
-                </a>
             </button>
-            <button>수정</button>
+            <button type="button" onclick='location.href="todo_update.php?list_no<? echo $result_info["list_no"] ?>"'>
+                수정
+            </button>
         </div>
 </div>
 </body>

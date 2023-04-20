@@ -57,7 +57,7 @@ if( $http_method === "POST")
                 </div>
 
                 <div class="but">
-                    <button>
+                    <button type="submit">
                         <a href="todo_detail.php">
                         완료
                         </a>
