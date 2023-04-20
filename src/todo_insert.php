@@ -64,6 +64,7 @@ $rand_no = rand(0,count($arr_1)-1);
                 
                 <div class="clock">
                     <img id="clock" src="./common/img/clock.png" alt="clock">
+                    <input type="text" placeholder="21:00">
                 </div>
                 <div class="clip">
                     <img id="clip" src="./common/img/clip.png" alt="clip">
