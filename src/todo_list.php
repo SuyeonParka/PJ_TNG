@@ -1,38 +1,8 @@
 <?php
-
-define( "DOC_ROOT", $_SERVER["DOCUMENT_ROOT"]."/" );
-define( "URL_DB", DOC_ROOT."src/fnc_park.php" );
-include_once( URL_DB );
-
-    //get 체크
-    if( array_key_exists( "page_num", $_GET) )
-    {
-        $page_num = $_GET["page_num"];
-    }
-    else 
-    {
-        $page_num = 1;    
-    }
-
-    $limit_num = 5;
+include_once( "./src/common/fnc_park.php" );
 
     //게시판 정보 테이블 전체 카운트 획득
     $result_cnt = select_board_info_cnt();
-
-    //1페이지 일때 0, 2페이지 일때 5, 3페이지 일때 10 ...
-    //offset 계산
-    $offset = ( $page_num * $limit_num) - $limit_num;
-
-    // max page 번호, int로 형변환, (전체블럭수) 전체 페이지 수 
-    $max_page_num = ceil( (int)$result_cnt[0]["cnt"] / $limit_num );
-
-    $arr_prepare = 
-        array(
-            "limit_num" => $limit_num
-            ,"offset"   => $offset
-        );
-    $result_paging = select_board_info_paging( $arr_prepare );
-    // var_dump( $max_page_num );
 
 ?>
 
@@ -61,49 +31,20 @@ include_once( URL_DB );
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            <?php //php
+            <?php 
                 foreach ( $result_paging as $record ) 
                 {
             ?>  
-                <tr> <!-- html -->
-                    <td><?php echo $record["board_no"] ?></td> <!--db php (echo : 데이터 출력) -->
-                    <td><a href="board_detail.php?board_no=<?echo $record['board_no']?>"><?echo $record["board_title"] ?></a></td>
-                    <td><?php echo $record["board_write_date"] ?></td>
+                <tr> 
+                    <td><?php echo $record["routine_no"] ?></td> 
+                    <td><a href="routine_detail.php?routine_no=<?echo $record['routine_no']?>"><?echo $record["board_title"] ?></a></td>
+                    <td><?php echo $record["routine_write_date"] ?></td>
                 </tr>
-            <?php //php
+            <?php 
                 }
             ?>
         </tbody>
     </table>
-    <!-- 페이징 번호 -->
-
-    <a href='board_list.php?page_num=<?php echo $page_num=1 ?>'>처음</a>
-    <?php
-        if($page_num !== 1)
-        {
-            $previous_page = $page_num - 1;
-            echo "<a href='board_list.php?page_num={$previous_page}'>이전</a>";
-        }
-    ?>
-    <?php
-        for ($i = 1; $i <= $max_page_num ; $i++)
-        {
-    ?>
-            <div>
-                <a href='board_list.php?page_num=<?php echo $i ?>'><?php echo $i ?></a> <!-- 페이지 나오게 하기 -->
-            </div>
-    <?php
-        }
-    ?>
-    <?php
-        if($page_num !== $max_page_num) 
-        {
-            $next_page = $page_num + 1;
-            echo "<a href='board_list.php?page_num={$next_page}'>다음</a>";
-        }
-    ?>
-        <a href='board_list.php?page_num=<?php echo $max_page_num ?>'>마지막</a>
-    </div>
 </body>
 </html>
 

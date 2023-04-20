@@ -152,7 +152,38 @@ function todo_update_flg( &$param_arr )
 
 }
 
+function select_board_info_cnt()
+{
+    $sql = 
+        " SELECT "
+        ."      COUNT(*) cnt"
+        ." FROM "
+        ."      routine_info "
+        ." WHERE "
+        ."      routine_del_flg = '0' "
+        ;
 
+    $arr_prepare = array ();
+
+    $conn = null; 
+    try 
+    {
+        db_conn( $conn );
+        $stmt = $conn -> prepare( $sql );
+        $stmt -> execute( $arr_prepare );
+        $result = $stmt->fetchAll();
+    } 
+    catch ( Exception $e ) 
+    {
+        return $e->getMessage(); 
+    }
+    finally
+    {
+        $conn = null; 
+    }
+
+    return $result;
+}
 
 
 
