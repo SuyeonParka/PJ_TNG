@@ -1,8 +1,6 @@
 <?php
 
-define( "DOC_ROOT", $_SERVER["DOCUMENT_ROOT"]."/" );
-define( "URL_DB", DOC_ROOT."src/common/db_common.php" );
-include_once( URL_DB );
+include_once( "common/fnc_park.php" );
 
 $arr_get = $_GET;
 
@@ -19,58 +17,65 @@ $result_info = todo_select_todo_detail( $arr_get["list_no"] );
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail</title>
     <link rel="stylesheet" href="./css/todo_detail.css">
+    <link rel="icon" href="common/img/favi.png">
 </head>
 <body>
     <div class="container">
         <div class="logo">
             <img id="logo" src="./common/img/logo.png" alt="logo">
         </div>
-        <form action="" method=""></form>
+        <!-- <form action="" method=""></form> -->
         <div class = "phase">
-            <p class="text">안녕하세요.</p>
-            <p>오늘은 <?echo date("m")?>월 <?echo date("d")?>일입니다.</p>
+            <p id="text">안녕하세요.</p>
+            <p id="text_1">오늘은 <?echo date("m")?>월 <?echo date("d")?>일입니다.</p>
         </div>
 
         <div class="line">
             <img id="line" src="./common/img/line.png" alt="line">
-            <input id="line_text" ><? echo $result_info["list_title"]?></input>
+            <p id="line_text" ><? echo $result_info["list_title"]?></p>
         </div>
 
         <div class="clock">
             <img id="clock" src="./common/img/clock.png" alt="clock">
-            <input id="clock_text" ><? echo $result_info["list_due_time"]?></input>
+            <p id="clock_text" ><? echo $result_info["list_due_time"]?></p>
         </div>
 
         <div class="clip">
             <img id="clip" src="./common/img/clip.png" alt="clip">
-            <input id="clip_text" maxlength="11"><? echo $result_info["list_contents"]?></input>
+            <p id="clip_text"><? echo $result_info["list_contents"]?></p>
         </div>
 
         <div class="done_but">
             <?
-            if ( todo_update_flg() === 1) 
+            if ($result_info["list_done_flg"] == 1) 
             {
             ?>
-                <a href="todo_list.php">
-                    <img id="done" src="./common/img/done_button.png" alt="완료버튼">
-                </a>
+            <a href="todo_detail_check.php?list_no=<? echo $result_info["list_no"]?>"> 
+                <img id="done" src="./common/img/done_button.png" alt="완료버튼">
+            </a>
             <?
             }
             else
             {
             ?>
+            <a href="todo_detail_check.php?list_no=<? echo $result_info["list_no"]?>"> 
                 <img id="not_done"src="./common/img/circle.png" alt="미완료">
+            </a>
             <?
             }
             ?>
         </div>
         
         <div class="but">
-            <button type="button" onclick="location.href='todo_list.php'">
-                목록
+            <button type="button">
+                <a id="list_but" href="todo_routine_list.php">
+                    목록
+                </a>
             </button>
-            <button type="button" onclick='location.href="todo_update.php?list_no<? echo $result_info["list_no"] ?>"'>
-                수정
+            <button type="button">
+                <a id="list_but_1" href="todo_update.php?list_no=<? echo $result_info["list_no"]?>">
+                    수정
+                </a>
             </button>
         </div>
 </div>

@@ -1,8 +1,8 @@
 <?php
-include_once( "./src/common/fnc_park.php" );
+include_once( "common/fnc_park.php" );
 
     //게시판 정보 테이블 전체 카운트 획득
-    $result_cnt = select_board_info_cnt();
+    $result_cnt = select_routine_info_cnt();
 
 ?>
 
@@ -22,7 +22,7 @@ include_once( "./src/common/fnc_park.php" );
     <img src="title.gif" alt="board">
     <div id="con">
     <table class='table'>
-        <button class="new" type="button"><a href="board_insert.php">게시글 작성</a></button>
+        <button class="new" type="button"><a href="routine_insert.php">게시글 작성</a></button>
         <thead>
             <tr>
                 <th>게시글 번호</th>
@@ -30,19 +30,12 @@ include_once( "./src/common/fnc_park.php" );
                 <th>작성일</th>
             </tr>
         </thead>
-        <tbody class="table-group-divider">
-            <?php 
-                foreach ( $result_paging as $record ) 
-                {
-            ?>  
+        <tbody class="table-group-divider"> 
                 <tr> 
                     <td><?php echo $record["routine_no"] ?></td> 
-                    <td><a href="routine_detail.php?routine_no=<?echo $record['routine_no']?>"><?echo $record["board_title"] ?></a></td>
+                    <td><a href="todo_detail.php?routine_no=<?echo $record['routine_no']?>"><?echo $record["routine_title"] ?></a></td>
                     <td><?php echo $record["routine_write_date"] ?></td>
                 </tr>
-            <?php 
-                }
-            ?>
         </tbody>
     </table>
 </body>

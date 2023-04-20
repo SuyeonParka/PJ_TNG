@@ -14,6 +14,9 @@ body {
     background-size: cover;
 }
 
+a {
+    text-decoration: none;
+}
 .container {
     padding-top: 91px;
     margin: 0 55px;
@@ -55,8 +58,8 @@ body {
 }
 
 .line input {
-    font-size: 26px;
-    font-weight: 700;
+    font-size: 30px;
+    font-weight: 800;
     border: none;
     background: transparent;
 }
@@ -99,8 +102,23 @@ button {
     height: 41px;
 }
 
+#but1, #but2 {
+    color: rgb(63, 63, 63);
+}
 
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    font-size: inherit;
+}
 
+option {
+    color: #181A20;
+}
 
 
 

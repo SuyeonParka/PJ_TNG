@@ -1,9 +1,6 @@
 <?php
 
-define( "DOC_ROOT", $_SERVER["DOCUMENT_ROOT"]."/" );
-define( "URL_DB", DOC_ROOT."src/common/db_common.php" );
-
-include_once( URL_DB );
+include_once( "common/fnc_park.php" );
 
 $http_method = $_SERVER["REQUEST_METHOD"];
 
@@ -17,6 +14,24 @@ if( $http_method === "POST")
     exit();
 }
 
+$hour = range(0, 23);
+foreach ($hour as $val) 
+    {
+        if ($val <= 9)
+        {
+            $val = "0".$val;
+        }
+        else
+        {
+            $val = $val;
+        }
+    }
+$min = array("00", "10", "20", "30", "40", "50");
+
+
+$arr_1 = todo_select_recom_routine();
+$rand_no = rand(0,count($arr_1)-1);
+// var_dump($arr_1);
 ?> 
 
 <!DOCTYPE html>
@@ -27,6 +42,7 @@ if( $http_method === "POST")
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insert page</title>
     <link rel="stylesheet" href="./css/todo_insert.css">
+    <link rel="icon" href="common/img/favi.png">
 </head>
 <body>
     <div class="container">
@@ -43,27 +59,25 @@ if( $http_method === "POST")
             <div class="contents">
                 <div class="line">
                     <img id="line" src="./common/img/line.png" alt="line">
-                    <input type="text" name ="line" placeholder="<? echo $result_cnt["recom_title"] ?>"></input>
+                    <input type="text" name="recom_no" placeholder="<? echo $arr_1[$rand_no]["recom_title"]?>" required></input>
                 </div>
                 
                 <div class="clock">
                     <img id="clock" src="./common/img/clock.png" alt="clock">
-                    <input type="text" name ="clock" placeholder="<? echo $result_cnt["recom_contents"] ?>"></input>
                 </div>
-
                 <div class="clip">
                     <img id="clip" src="./common/img/clip.png" alt="clip">
-                    <input type="text" name ="clip" placeholder="21:00"></input>
+                    <input type="text" name ="clip" placeholder="<? echo $arr_1[$rand_no]["recom_contents"]?>" required></input>
                 </div>
 
                 <div class="but">
                     <button type="submit">
-                        <a href="todo_detail.php">
-                        완료
+                        <a id="but1" href="todo_detail.php">
+                            완료
                         </a>
                     </button>
-                    <button>
-                        <a href= "todo_list.php?list_no<? echo $result_info["list_no"]?>">    
+                    <button type="button">
+                        <a id="but2" href= "todo_routine_list.php?list_no">    
                             취소
                         </a>
                     </button>
