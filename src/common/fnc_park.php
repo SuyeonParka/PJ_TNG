@@ -7,6 +7,7 @@ include_once( "db_common.php" );
 파라미터 : Arr      &$param_arr
 리턴값  :  int/array     $result_cnt/ERRMSG
 -----------------------------------------------*/
+
 function todo_insert_recom_routine( &$param_arr )
 {
     $sql =
@@ -34,7 +35,7 @@ function todo_insert_recom_routine( &$param_arr )
     try 
     {
         db_conn( $conn );
-        $conn->befigTransaction();
+        $conn->beginTransaction();
         $stmt = $conn -> prepare( $sql ); 
         $stmt -> execute( $arr_prepare ); 
         $result_cnt = $stmt->rowCount();
@@ -280,4 +281,191 @@ function todo_select_recom_routine()
 }
 
 // var_dump(todo_select_recom_routine());
+
+/*---------------------------------------------
+함수명 : todo_insert_info
+기능   : db의 list, info에 둘다 정보가 적용
+파라미터 : int      &$param_no
+리턴값  :  int/array     $result/ERRMSG
+-----------------------------------------------*/
+function todo_insert_info( &$param_arr )
+{
+    $sql =
+        " INSERT INTO "
+        ." routine_info "
+        ." ( "
+        ." routine_title "
+        ." ,routine_contents "
+        ." ,routine_due_time "
+        ." ) "
+        ." VALUES "
+        ." ( "
+        ." :routine_title "
+        ." ,:routine_contents "
+        ." ,:routine_due_time "
+        ." ) "
+        ;
+
+    $arr_prepare =
+    array(
+        ":routine_title" => $param_arr["routine_title"]
+        ,":routine_contents" => $param_arr["routine_contents"]
+        ,":routine_due_time" => $param_arr["routine_due_time"]
+    );
+
+    $conn = null;
+    
+    try 
+    {
+        db_conn( $conn );
+        $conn->beginTransaction();
+        $stmt = $conn -> prepare( $sql ); 
+        $stmt -> execute( $arr_prepare ); 
+        $result_cnt = $stmt->rowCount();
+        $conn->commit();
+    } 
+    catch ( Exception $e) 
+    {
+        $conn->rollBack();
+        return $e->getMessage(); 
+    }
+    finally 
+    {
+        $conn = null;
+    }
+
+    return $result_cnt;
+}
+
+//to do 
+// $a = array("routine_title"=>"str"
+//             ,"routine_contents"=>"sttttt"
+//             ,"routine_due_time"=>1212
+//             );
+// // var_dump($a);
+// var_dump(todo_insert_info($a));
+// // to do
+
+
+/*---------------------------------------------
+함수명 : todo_select_list
+기능   : routine_info에 정보 인서트
+파라미터 : array      &$param_arr
+리턴값  :  str     $last_no/ERRMSG
+-----------------------------------------------*/
+function todo_insert_routine_info( &$param_arr )
+{
+    $sql =
+        " INSERT INTO "
+        ." routine_info ( "
+        ." routine_title "
+        ." ,routine_contents "
+        ." ,routine_due_time ) "
+        ." VALUES ( "
+        ." :routine_title "
+        ." ,:routine_contents "
+        ." ,:routine_due_time "
+        ." ) "
+        ;
+
+    $arr_prepare =
+    array(
+        ":routine_title" => $param_arr["routine_title"]
+        ,":routine_contents" => $param_arr["routine_contents"]
+        ,":routine_due_time" => $param_arr["routine_due_hour"].$param_arr["routine_due_min"].'00'
+    );
+
+    $conn = null;
+    
+    try 
+    {
+        db_conn( $conn );
+        $conn->beginTransaction();
+        $stmt = $conn -> prepare( $sql ); 
+        $stmt -> execute( $arr_prepare ); 
+        $last_no = $conn->lastInsertId();
+        $conn->commit();
+    } 
+    catch ( Exception $e) 
+    {
+        $conn->rollBack();
+        return $e->getMessage(); 
+    }
+    finally 
+    {
+        $conn = null;
+    }
+
+    return $last_no;
+}
+
+
+/*---------------------------------------------
+함수명 : todo_insert_routine_list
+기능   : routine_info정보를 select해서 routine_list 테이블에 insert 
+파라미터 : int      &$param_no
+리턴값  :  int/str     $last_no/ERRMSG
+-----------------------------------------------*/
+function todo_insert_routine_list( &$param_no )
+{
+    $sql =
+        " INSERT INTO "
+        ." routine_list "
+        ." ( "
+        ." routine_no "
+        ." ,list_title "
+        ." ,list_contents "
+        ." ,list_due_time "
+        ." ) "
+        ." SELECT "
+        ." routine_no "
+        ." ,routine_title "
+        ." ,routine_contents "
+        ." ,routine_due_time "
+        ." FROM "
+        ." routine_info "
+        ." WHERE "
+        ." routine_no = :routine_no "
+        ;
+
+    $arr_prepare =
+    array(
+        ":routine_no" => $param_no
+    );
+
+    $conn = null;
+    
+    try 
+    {
+        db_conn( $conn );
+        $conn->beginTransaction();
+        $stmt = $conn -> prepare( $sql ); 
+        $stmt -> execute( $arr_prepare ); 
+        $last_no = $conn->lastInsertId();
+        $conn->commit();
+    } 
+    catch ( Exception $e) 
+    {
+        $conn->rollBack();
+        return $e->getMessage(); 
+    }
+    finally 
+    {
+        $conn = null;
+    }
+
+    return $last_no;
+}
+//to do 
+// $a = array( 
+//             "routine_title"=>"str"
+//             ,"routine_contents"=>"sttttt"
+//             ,"routine_due_hour"=>12
+//             ,"routine_due_min"=>12
+//             );
+// // var_dump($a);
+// var_dump(todo_select_list($a));
+// to do
+
+
 ?>

@@ -4,27 +4,19 @@ include_once( "common/fnc_park.php" );
 
 $http_method = $_SERVER["REQUEST_METHOD"];
 
-if( $http_method === "POST")
-{
-    $arr_post = $_POST;
 
-    $result_cnt = todo_insert_recom_routine( $arr_post );
 
-    header( "Location: todo_list.php" );
-    exit();
-}
-
-$hour = range(0, 23);
-foreach ($hour as $val) 
+$hour = array();
+    for ($i=0; $i < 24; $i++) 
     {
-        if ($val <= 9)
-        {
-            $val = "0".$val;
-        }
-        else
-        {
-            $val = $val;
-        }
+    if ($i<10) 
+    {
+        array_push($hour, "0".$i);
+    }
+    else
+    {
+        array_push($hour, $i);
+    }
     }
 $min = array("00", "10", "20", "30", "40", "50");
 
@@ -32,6 +24,25 @@ $min = array("00", "10", "20", "30", "40", "50");
 $arr_1 = todo_select_recom_routine();
 $rand_no = rand(0,count($arr_1)-1);
 // var_dump($arr_1);
+
+
+
+
+if ( $http_method === "POST" ) 
+{
+    $arr_post = $_POST;
+    $result = todo_insert_routine_info($arr_post);
+    $result_list = todo_insert_routine_list($result);
+    $result_select = todo_select_todo_detail($result_list);
+
+    header( "Location: todo_detail.php?list_no=".$result_select["list_no"]);
+    exit();
+    // var_dump($result_select);
+}
+
+
+
+
 ?> 
 
 <!DOCTYPE html>
@@ -59,29 +70,46 @@ $rand_no = rand(0,count($arr_1)-1);
             <div class="contents">
                 <div class="line">
                     <img id="line" src="./common/img/line.png" alt="line">
-                    <input type="text" name="recom_no" placeholder="<? echo $arr_1[$rand_no]["recom_title"]?>" required></input>
+                    <input type="text" name="routine_title" placeholder="<? echo $arr_1[$rand_no]["recom_title"]?>" required></input>
                 </div>
                 
                 <div class="clock">
                     <img id="clock" src="./common/img/clock.png" alt="clock">
-                    <input type="text" placeholder="21:00">
+                    <select id="hour" name="routine_due_hour" required>
+                        <? 
+                            foreach ( $hour as $val ) 
+                            { 
+                        ?>
+                                <option><? echo $val ?></option>
+                        <? 
+                            }
+                        ?>
+                    </select>
+                        <p>:</p>
+                    <select id="min" name="routine_due_min" required>
+                        <? 
+                            foreach ( $min as $val ) 
+                            { 
+                        ?>
+                                <option><? echo $val ?></option>
+                        <? 
+                            }
+                        ?>
+                    </select>
                 </div>
                 <div class="clip">
                     <img id="clip" src="./common/img/clip.png" alt="clip">
-                    <input type="text" name ="clip" placeholder="<? echo $arr_1[$rand_no]["recom_contents"]?>" required></input>
+                    <input type="text" name ="routine_contents" placeholder="<? echo $arr_1[$rand_no]["recom_contents"]?>" required></input>
                 </div>
-
                 <div class="but">
                     <button type="submit">
-                        <a id="but1" href="todo_detail.php">
                             완료
-                        </a>
                     </button>
+                <a id="but2" href= "todo_routine_list.php?list_no"> 
                     <button type="button">
-                        <a id="but2" href= "todo_routine_list.php?list_no">    
                             취소
-                        </a>
-                    </button>
+                </button>
+                </a>
                 </div>
             </div>
         </form>

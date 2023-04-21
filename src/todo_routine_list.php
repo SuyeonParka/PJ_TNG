@@ -88,7 +88,7 @@
                             <?
                             }
                             ?>
-                            <a href="/1stproj/todo_check_update.php?list_no=<?echo $value["list_no"]?>&list_done_flg=<?echo $value["list_done_flg"]?>" class="check_status"></a>
+                            <a href="/src/todo_check_update.php?list_no=<?echo $value["list_no"]?>&list_done_flg=<?echo $value["list_done_flg"]?>" class="check_status"></a>
                         <?
                         }
                         ?>
@@ -99,7 +99,7 @@
                     ?>
                 </ul>
             </main>
-            <a href="/1stproj/todo_detail.php?list_no=<?echo $value["list_no"]?>"><div class="check_butten">
+            <a href="/src/todo_insert.php?list_no=<?echo $value["list_no"]?>"><div class="check_butten">
             </div></a>
         </div>
     </div>

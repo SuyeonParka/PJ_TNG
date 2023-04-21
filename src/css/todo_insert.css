@@ -64,15 +64,24 @@ a {
     background: transparent;
 }
 
-.clock, .clip{
+.clock {
+    display: grid;
+    grid-template-columns: 20px 30px 5px 30px;
+    grid-gap: 17px;
+    align-items: center;
+}
+
+.clip {
     display: grid;
     grid-template-columns: 20px 1fr;
     grid-gap: 17px;
+    align-items: center;
 }
+
 
 #clock, #clip {
     width: 20px;
-    vertical-align: center;
+    /* vertical-align: center; */
 }
 
 .clip input, .clock input {
@@ -105,6 +114,12 @@ button {
 #but1, #but2 {
     color: rgb(63, 63, 63);
 }
+
+/* 
+#hour, #min {
+    display: grid;
+    grid-template-columns: 10px 1fr;
+} */
 
 select {
     -webkit-appearance: none;

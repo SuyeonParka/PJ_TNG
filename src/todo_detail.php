@@ -67,17 +67,17 @@ $result_info = todo_select_todo_detail( $arr_get["list_no"] );
         </div>
         
         <div class="but">
-            <button type="button">
-                <a id="list_but" href="todo_routine_list.php">
+            <a id="list_but" href="todo_routine_list.php">
+                <button type="button">
                     목록
-                </a>
-            </button>
-            <button type="button">
-                <a id="list_but_1" href="todo_update.php?list_no=<? echo $result_info["list_no"]?>">
+                </button>
+            </a>
+            <a id="list_but_1" href="todo_update.php?list_no=<? echo $result_info["list_no"]?>">
+                <button type="button">
                     수정
-                </a>
-            </button>
+                </button>
+            </a>
         </div>
-</div>
+    </div>
 </body>
 </html>
