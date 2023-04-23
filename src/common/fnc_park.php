@@ -55,6 +55,12 @@ function todo_insert_recom_routine( &$param_arr )
 
 }
 
+/*
+-게시글 작성
+-insert page에 사용
+-placeholder로 랜덤값 줄 때 이용됨
+-title, contents 추천
+*/
 
 /*---------------------------------------------
 함수명 : todo_select_todo_detail
@@ -107,6 +113,18 @@ function todo_select_todo_detail( &$param_no )
 
 }
 
+/*
+-루틴 리스트 페이지에서 게시글 정보 불러옴
+-detail page 사용됨
+-rountion_list 테이블에서 특정 list_no값을 가진 행 선택
+-$arr_prepare 배열에 :list_no와 $param_no값을 연결하여 쿼리를 실행할 때 사용
+-db_conn 함수를 이용하여 db에 연결
+-fetchAll() 실행결과를 배열에 저장
+-$conn = null 배열을 닫음
+-result[0]을 반환하여 실행 결과에서 첫번째 행을 가져옴
+-이 함수를 호출하며 $param_no에 지정된 list_no 값을 가진행의 정보를 반환
+*/
+
 /*---------------------------------------------
 함수명 : todo_update_flg
 기능   : 게시글 정보
@@ -155,6 +173,20 @@ function todo_update_flg( &$param_arr )
 
 }
 
+/*
+-routine_info 테이블에서 routine_del_flg필드를 업뎃
+-routine_no를 기준
+-실행결과로는 업뎃된 레코드 수가 반환
+
+
+*/
+
+/*---------------------------------------------
+함수명 : select_routine_info_cnt
+기능   : routine_del_flg 필드가 0인 레코드 수 반환
+파라미터 : 
+리턴값  :  int/array     $result/ERRMSG
+-----------------------------------------------*/
 function select_routine_info_cnt()
 {
     $sql = 
@@ -188,6 +220,11 @@ function select_routine_info_cnt()
     return $result;
 }
 
+/*
+-routine_info 테이블에서 routine_del_flg 필드가 0인 레코드 수를 반환함
+-결과로는 cnt 필드 값을 가진 배열이 반환됨
+
+*/
 //todo 실행
 // $a=1;
 // var_dump(todo_select_todo_detail($a));
@@ -198,7 +235,7 @@ function select_routine_info_cnt()
 // 함수명      : update_check_flg
 // 기능        : 체크리스트 update
 // 파라미터    : &$param_arr
-// 리턴값      : 없음
+// 리턴값      : $result_count
 // ---------------------------------------
 
 function update_check_flg(&$param_arr)
@@ -240,6 +277,18 @@ function update_check_flg(&$param_arr)
     return $result_count;
 }
 
+/* 
+-routine_list 테이블에서 특정 list_no 값을 가진 행의 list_done_flg 값을 업뎃 하는 함수
+-routine_list 테이블에서 list_no 값을 $param_no["list_no"]로 가진 행의
+'list_done_flg' 값을 $param_arr["list_done_flg"] 값으로 업뎃
+-stmt->rowCount() : 실행 결과로 변경된 행의 수를 가져와 $result_count에 변수 저장
+-$conn->commit() : 변경 사항 db에 저장(트랜잭션 커밋)
+-$result_count 값 반환하여 업뎃된 행의 수 반환
+-routine_list 테이블에서 특정 행의 list_done_flg 값을 업뎃할 때 사용
+함수를 호출하면 $param_arr배열에 지정된 list_no 값을 가진 행의 list_done_flg 값을
+$param_arr 배열에 지정된 list_done_flg 값으로 업뎃하고 업뎃된 행의 수 반환
+*/
+
 /*---------------------------------------------
 함수명 : todo_select_recom_routine
 기능   : 삽입 페이지 할일 랜덤 추천
@@ -280,6 +329,10 @@ function todo_select_recom_routine()
     return $result;
 }
 
+/*
+-recom_routine 테이블에서 추천 루틴 정보를 조회하는 함수
+-결과로는 routine_no, title, contents 필드 값을 가진 배열이 반환됨
+*/
 // var_dump(todo_select_recom_routine());
 
 /*---------------------------------------------
@@ -337,6 +390,12 @@ function todo_insert_info( &$param_arr )
     return $result_cnt;
 }
 
+/*
+-routine_info 테이블에 새로운 루틴 정보를 추가하는 함수
+-함수 실행 시 routine_title, contents, due_time 값을 가진 배열이 
+매개변수로 전달되어야 합니다.
+
+*/
 //to do 
 // $a = array("routine_title"=>"str"
 //             ,"routine_contents"=>"sttttt"
@@ -398,7 +457,20 @@ function todo_insert_routine_info( &$param_arr )
 
     return $last_no;
 }
+/*
+-todo list 관련 함수 중
+새로운 루틴 정보를 데이터베이스에 추가하는 함수입니다.
+-매개변수로는 새로운 루틴 정보를 담은 $param_arr이 전달됩니다. 
+이 배열은 routine_title, routine_contents, routine_due_hour와 
+routine_due_min등의 정보를 포함
+-함수에서는 데이터베이스에 추가하기 위해 사용될 SQL문을 먼저 정의 
+그리고 이후에는 $arr_prepare 배열에 매개변수에서 받아온 값들을 대입하고, 
+prepare() 함수를 사용하여 SQL문을 데이터베이스에 전달. 
+그리고 execute() 함수를 호출하여 SQL문을 실행.
+-lastInsertId() 함수를 사용하여 마지막으로 추가된 레코드의 ID를 가져와 $last_no 변수에 저장. 
+마지막으로 $last_no 변수를 반환
 
+*/
 
 /*---------------------------------------------
 함수명 : todo_insert_routine_list
@@ -456,6 +528,25 @@ function todo_insert_routine_list( &$param_no )
 
     return $last_no;
 }
+/* 
+-루틴 iinfo 테이블에서 루틴no를 가져와 해당 루틴 정보를 루틴 리스트 테이블에
+새로운 할 일로 추가하는 작업을 수행함
+-루틴 번호를 매개변수로 받아와서 해당 루틴의 정보를 루틴 정보 테이블에서 선택한 후 
+이 정보를 기반으로 루틴 리스트에 새로운 할 일을 추가함
+이때 추가된 할 일의 번호(PK)를 반환함
+
+
+
+*/
+
+
+
+
+
+
+
+
+
 //to do 
 // $a = array( 
 //             "routine_title"=>"str"
