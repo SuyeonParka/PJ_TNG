@@ -1,3 +1,4 @@
+/* detail */
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 * {
@@ -10,7 +11,7 @@
 
 body {
     height: 100vh;
-    width: 100vw;
+    width: auto;
     background: linear-gradient(225deg, #1C244C 0%, #181A20 10.42%, #191B26 88.54%, #1C244C 100%) no-repeat center;
     background-size: cover;
 }
@@ -20,20 +21,51 @@ a {
 }
 
 .container {
+    padding-top: 100px;
     margin: 0 55px;
     display: grid;
     grid-gap: 30px;
 }
 
-.contents {
+.container2 {       /* update 위에 이전로고 때문에 따로*/
+    margin: 0 55px;
     display: grid;
     grid-gap: 30px;
 }
 
+.back_button {
+    margin-left: 33px;
+    margin-top: 66px;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+#back_button {
+    width: 12px;
+}
+
+.contents {
+    display: grid;
+    grid-gap: 30px; /*34px*/
+}
 
 .logo {
-    margin-top: 90px;
+    margin: 0 auto;
+    /* margin-top: 90px; */
     text-align: center;
+    width: 60vw;
+}
+
+#logo {
+    width: 100%;
+    /* width: 250px; */
+}
+
+.container2 > p {
+    font-size: 30px;
+    font-weight: 800;
+    padding: 0 0 40px;
 }
 
 #text{
@@ -48,10 +80,17 @@ a {
     width: 250px;
 }
 
-#hand {
-    display: grid;
-    width: 80%;
-    grid-template-columns: 10px 240px;
+#text {
+    height: 114px;
+}
+
+.phase {
+    margin: 10px;
+    font-size: 30px;
+    font-weight: 900;
+    text-align: center;
+    color: #f6f6f6;
+    text-align: left;
 }
 
 .line {
@@ -69,6 +108,13 @@ a {
     width: 5px;
 }
 
+.line input {
+    font-size: 30px;
+    font-weight: 800;
+    border: none;
+    background: transparent;
+}
+
 .clock {
     width: 10px;
 }
@@ -77,17 +123,14 @@ a {
     display: grid;
     grid-template-columns: 20px 1fr 1fr 1fr;
     grid-gap: 17px;
+    align-items: center;
 }
 
 .clip {
     display: grid;
     grid-template-columns: 20px 1fr;
-    grid-gap: 17px
-}
-.clock input 
-,.clip input{
-    border: none;
-    background: transparent;
+    grid-gap: 17px;
+    align-items: center;
 }
 
 #clock, #clip {
@@ -100,7 +143,16 @@ a {
     font-weight: 400;
 }
 
+
+.clip input, .clock input {
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    background: transparent;
+}
+
 .but {
+    padding-top: 120px;
     display: grid;
     grid-template-columns: 106px 106px;
     grid-gap: 27px;
@@ -120,6 +172,10 @@ a {
 }
 
 
+#but1, #but2 {
+    color: rgb(63, 63, 63);
+}
+
 #not_done, #done {
     margin-top: 35px;
     width: 44px;
@@ -135,11 +191,35 @@ a {
     text-align: center;
 }
 
-#list_but, #list_but_1{
-    color: rgb(63, 63, 63);
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    font-size: inherit;
 }
 
-.phase {
-    height: 114px;
+option {
+    color: #181A20;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

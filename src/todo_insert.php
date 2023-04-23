@@ -23,9 +23,6 @@ $min = array("00", "10", "20", "30", "40", "50");
 
 $arr_1 = todo_select_recom_routine();
 $rand_no = rand(0,count($arr_1)-1);
-// var_dump($arr_1);
-
-
 
 
 if ( $http_method === "POST" ) 
@@ -37,7 +34,6 @@ if ( $http_method === "POST" )
 
     header( "Location: todo_detail.php?list_no=".$result_select["list_no"]);
     exit();
-    // var_dump($result_select);
 }
 
 
@@ -52,7 +48,7 @@ if ( $http_method === "POST" )
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insert page</title>
-    <link rel="stylesheet" href="./css/todo_insert.css">
+    <link rel="stylesheet" href="./css/todo_total.css">
     <link rel="icon" href="common/img/favi.png">
 </head>
 <body>
