@@ -115,7 +115,7 @@ function todo_select_todo_detail( &$param_no )
 
 /*
 -루틴 리스트 페이지에서 게시글 정보 불러옴
--detail page 사용됨
+-detail page, insert page에서 사용됨
 -rountion_list 테이블에서 특정 list_no값을 가진 행 선택
 -$arr_prepare 배열에 :list_no와 $param_no값을 연결하여 쿼리를 실행할 때 사용
 -db_conn 함수를 이용하여 db에 연결
@@ -177,8 +177,6 @@ function todo_update_flg( &$param_arr )
 -routine_info 테이블에서 routine_del_flg필드를 업뎃
 -routine_no를 기준
 -실행결과로는 업뎃된 레코드 수가 반환
-
-
 */
 
 /*---------------------------------------------
@@ -223,8 +221,9 @@ function select_routine_info_cnt()
 /*
 -routine_info 테이블에서 routine_del_flg 필드가 0인 레코드 수를 반환함
 -결과로는 cnt 필드 값을 가진 배열이 반환됨
-
 */
+
+
 //todo 실행
 // $a=1;
 // var_dump(todo_select_todo_detail($a));
@@ -332,6 +331,7 @@ function todo_select_recom_routine()
 /*
 -recom_routine 테이블에서 추천 루틴 정보를 조회하는 함수
 -결과로는 routine_no, title, contents 필드 값을 가진 배열이 반환됨
+-insert page에서 사용
 */
 // var_dump(todo_select_recom_routine());
 
@@ -469,7 +469,7 @@ prepare() 함수를 사용하여 SQL문을 데이터베이스에 전달.
 그리고 execute() 함수를 호출하여 SQL문을 실행.
 -lastInsertId() 함수를 사용하여 마지막으로 추가된 레코드의 ID를 가져와 $last_no 변수에 저장. 
 마지막으로 $last_no 변수를 반환
-
+-insert page에서 사용
 */
 
 /*---------------------------------------------
@@ -534,7 +534,7 @@ function todo_insert_routine_list( &$param_no )
 -루틴 번호를 매개변수로 받아와서 해당 루틴의 정보를 루틴 정보 테이블에서 선택한 후 
 이 정보를 기반으로 루틴 리스트에 새로운 할 일을 추가함
 이때 추가된 할 일의 번호(PK)를 반환함
-
+-insert page에서 사용
 
 
 */
